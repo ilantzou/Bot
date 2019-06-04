@@ -1,0 +1,161 @@
+﻿<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Bot 公眾機器人</title>
+    <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+    <script>
+////////////////////////////////////////////////////////
+window.onload = function (e) {
+    liff.init(function (data) {
+        initializeApp(data);
+    });
+    getQueryString();
+};
+////////////////////////////////////////////////////////
+function initializeApp(data) {
+    document.getElementById('uid').textContent = data.context.userId;
+}
+////////////////////////////////////////////////////////
+    liff.getProfile(function (profile) {
+        showApp(profile);
+    });
+function showApp(profile) {
+    document.getElementById('userid').textContent = profile.userId;
+    document.getElementById('username').textContent = profile.displayName;
+}
+////////////////////////////////////////////////////////
+//liff.getProfile().then(profile => {
+//  const username = profile.displayName
+//}).catch((err) => {
+//  console.log('error', err);
+//});
+////////////////////////////////////////////////////////
+function getQueryString() {
+
+var url = location.href;
+if (url.indexOf('?')!=-1)
+{
+    var id = "";
+    var ary = url.split('?')[1].split('&');
+    for(i=0;i<=ary.length-1;i++)
+    {
+        //如果資料名稱為id的話那就把他取出來
+        if(ary[i].split('=')[0] == 'id')
+            id = decodeURI(ary[i].split('=')[1]);
+            id = id.replace(/%40/,"@");
+    }
+    //alert(id);
+    document.getElementById("myemail").value = id;
+}    
+
+}
+////////////////////////////////////////////////////////
+/////////
+function SendUVI() {
+       // 送出 Message
+       liff.sendMessages([
+        {
+            "type": "text",
+            "text": "UVI",
+        },
+        {
+            "type": "text",
+            "text": "自己丟雷達回波圖",
+        },
+        {
+            "type": "image",
+            "originalContentUrl": "https://www.cwb.gov.tw/Data/radar/CV1_3600.png",
+            "previewImageUrl": "https://www.cwb.gov.tw/Data/radar/CV1_3600.png",
+        },
+        ]).then(function () {
+            //liff.closeWindow();
+        }).catch(function (error) {
+            window.alert("傳送失敗錯誤碼：" + error);
+        });
+}
+/////////
+function SendMsg(msg){
+       if (msg == "email") {
+          var v = document.getElementById("myemail").value;
+          var msg1 = "請回到 Line 中並查看 Email\n";
+       } else if (msg == "vnum") {
+          var v = document.getElementById("vnum").value;
+          var msg1 = "請回到 Line 中並查看 驗證碼\n";;
+       } else if (msg == "car") {
+          var v = document.getElementById("car").value;
+          var msg1 = "請回到 Line 中並查看 設定\n";
+       }
+       v = "您輸入了：" + v;
+       //v = "//" + v.replace('\s','');
+
+       // 送出 Message
+       liff.sendMessages([
+        {
+            "type": "text",
+            "text": v,
+        }, 
+        ]).then(function () {
+            window.alert(msg1);
+            liff.closeWindow();
+        }).catch(function (error) {
+            window.alert("傳送失敗錯誤碼：" + error);
+        });
+}
+/////////
+function getToken() {
+   const accessToken = liff.getAccessToken();
+   if (accessToken) {
+       //window.alert(accessToken);
+       liff.sendMessages([
+        {
+            "type": "text",
+            "text": accessToken,
+        },
+        ]).then(function () {
+            liff.closeWindow();
+        }).catch(function (error) {
+            window.alert("傳送失敗錯誤碼：" + error);
+        });
+   }    
+}
+/////////
+//setTimeout("SendUVI()", 500)
+/////////
+    </script>  
+</head>
+
+<body>
+
+        <div aling="center">
+            <hr/>
+            Bot<br/>
+            1.抓 Channel 中的使用者名稱和日期等參數，不限 Liff 提供。<br/>
+            2.自動發訊到 Channel 獲取對應訊息。<br/>
+            3.<a href="line://app/1572438364-MKr77nP3">自動 LineLogin 抓 Email</a>。Bot<br/>
+            4.<a href="line://app/1578805614-0PR6EZQx">自動 LineLogin 抓 Email</a>。LineLogin<br/>
+
+            <hr/>
+       <button onclick="getQueryString()">getQueryString</button> <button onclick="getToken()">accessToken</button>  <button onclick="SendUVI()">UVI</button> <button onclick="javascript:location.href='https://script.google.com/macros/s/AKfycbz5PRzl3VOxccM61PICMTSNKJt2fNMhpd7oyCU-jFuqeL6MAPE/exec?NotifyToken=iFY0a7gPFsPDY8pP74t5z1dfzlT8kzEyuchfbOE77Do&msg=你好。&img=https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2019/03/11/realtime/6031928.jpg'">Line Notify</button>
+       </div>
+
+        <table aling="center">
+        <tr><td>
+        Email:</td>
+            <td><input type="email" id="myemail" value="email"/></td><td><button onclick="SendMsg('email')">註冊</button></td>
+        </tr>
+        <tr><td>   
+        測試欄位：</td>
+           <td><input type="number" pattern="[0-9]*" id="vnum" value="5678"/ maxlength="40"></td><td><button onclick="SendMsg('vnum')">測試</button></td>
+        </tr>
+        </table>
+            <br/>
+            <div id="uid"></div><br/>
+            <div id="userid"></div><br/>
+            <div id="username"></div><br/>
+<hr/>
+<div align="right">~鄒仔~</div>
+<hr/>
+
+    </div>
+    
+</body>
