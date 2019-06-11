@@ -1,5 +1,4 @@
 <html>
-<!--https://gist.github.com/Gugic/cfc008599fa9a82eeba4127648009132#gistcomment-2237466-->
 <head>
 	<title>DialogFlow API Example</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -58,7 +57,7 @@
 			send();
 		}
 		function updateRec() {
-			$("#botRec").text(recognition ? "Stop" : "Talk");
+			$("#botRec").text(recognition ? "停止" : "語音");
 		}
 		function send() {
 			var text = $("#botInput").val();
@@ -115,7 +114,7 @@
   			<div id="response"></div>
 		</div>
  		<br />
-    	<input id="botInput" type="text" placeholder="Hi, how can I help?" autocomplete="off" /><button id="botRec">Talk</button>
+    	<input id="botInput" type="text" placeholder="您好，有甚麼我可以幫助你的嗎？" autocomplete="off" /><button id="botRec">語音</button>
 	</div>
 </body>
 </html>
