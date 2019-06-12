@@ -33,6 +33,7 @@ function showApp(profile) {
 function getQueryString() {
 
 var url = location.href;
+document.getElementById("QS").value = url;
 if (url.indexOf('?')!=-1)
 {
     var id = "";
@@ -146,6 +147,10 @@ function getToken() {
         <tr><td>   
         測試欄位：</td>
            <td><input type="number" pattern="[0-9]*" id="vnum" value="5678"/ maxlength="40"></td><td><button onclick="SendMsg('vnum')">測試</button></td>
+        </tr>
+        <tr><td>   
+        內容：</td>
+           <td><textarea id="QS"></textarea></td><td><button onclick="getQueryString()">getQueryString</button></td>
         </tr>
         </table>
             <br/>
