@@ -51,6 +51,26 @@ if (url.indexOf('?')!=-1)
 
 }
 ////////////////////////////////////////////////////////
+function getId() {
+
+var url = location.href;
+if (url.indexOf('?')!=-1)
+{
+    var id = "";
+    var ary = url.split('?')[1].split('&');
+    for(i=0;i<=ary.length-1;i++)
+    {
+        //如果資料名稱為id的話那就把他取出來
+        if(ary[i].split('=')[0] == 'id')
+            id = decodeURI(ary[i].split('=')[1]);
+            id = id.replace(/%40/,"@");
+    }
+    //alert(id);
+    document.getElementById("myemail").value = id;
+}    
+
+}
+////////////////////////////////////////////////////////
 /////////
 function SendUVI() {
        // 送出 Message
@@ -136,7 +156,7 @@ function getToken() {
             4.<a href="line://app/1578805614-0PR6EZQx">自動 LineLogin 抓 Email</a>。LineLogin<br/>
 
             <hr/>
-       <button onclick="getQueryString()">getQueryString</button> <button onclick="getToken()">accessToken</button>  <button onclick="SendUVI()">UVI</button> <button onclick="javascript:location.href='https://script.google.com/macros/s/AKfycbz5PRzl3VOxccM61PICMTSNKJt2fNMhpd7oyCU-jFuqeL6MAPE/exec?NotifyToken=iFY0a7gPFsPDY8pP74t5z1dfzlT8kzEyuchfbOE77Do&msg=你好。&img=https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2019/03/11/realtime/6031928.jpg'">Line Notify</button>
+       <button onclick="getId()">getId</button> <button onclick="getToken()">accessToken</button>  <button onclick="SendUVI()">UVI</button> <button onclick="javascript:location.href='https://script.google.com/macros/s/AKfycbz5PRzl3VOxccM61PICMTSNKJt2fNMhpd7oyCU-jFuqeL6MAPE/exec?NotifyToken=iFY0a7gPFsPDY8pP74t5z1dfzlT8kzEyuchfbOE77Do&msg=你好。&img=https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2019/03/11/realtime/6031928.jpg'">Line Notify</button>
        </div>
 
         <table aling="center">
@@ -150,7 +170,7 @@ function getToken() {
         </tr>
         <tr><td>   
         內容：</td>
-           <td><textarea id="QS"></textarea></td><td><button onclick="getQueryString()">getQueryString</button></td>
+           <td><textarea cols="100" rows="10" id="QS"></textarea></td><td><button onclick="getQueryString()">getQueryString</button></td>
         </tr>
         </table>
             <br/>
