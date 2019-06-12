@@ -35,20 +35,6 @@ function getQueryString() {
 var url = location.href;
 //document.getElementById("QS").value = url;
 document.getElementById("QS").value = url.split('?')[1];
-if (url.indexOf('?')!=-1)
-{
-    var id = "";
-    var ary = url.split('?')[1].split('&');
-    for(i=0;i<=ary.length-1;i++)
-    {
-        //如果資料名稱為id的話那就把他取出來
-        if(ary[i].split('=')[0] == 'id')
-            id = decodeURI(ary[i].split('=')[1]);
-            id = id.replace(/%40/,"@");
-    }
-    //alert(id);
-    document.getElementById("myemail").value = id;
-}    
 
 }
 ////////////////////////////////////////////////////////
